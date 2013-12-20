@@ -25,7 +25,7 @@ Congo::Application.routes.draw do
   match '/checkout', to: 'orders#checkout', via: 'get'
   match '/add_billing_info', to: 'orders#add_billing_info', via: 'patch'
   match '/confirmation', to: 'orders#confirmation', via: 'get'
-
+  match '/order_fulfillment', to: 'orders#order_fulfillment', via: 'get'
 
 
 

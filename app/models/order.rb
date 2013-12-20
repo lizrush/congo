@@ -5,24 +5,24 @@ class Order < ActiveRecord::Base
   #validates :order_item, presence: true
   has_many :products, through: :order_items
 
-  # validates :email, :mailing_address, :name_on_cc, :cc_number, :cc_expiration, :cc_cvv, :billing_zip,   presence: true
-  # TO FIX: this validation causes a new order to crash because it asks for this info before the payment/checkout page.
+  validates :email, :mailing_address, :name_on_cc, :cc_number, :cc_expiration, :cc_cvv, :billing_zip,   presence: true, if: :iscompleted?
+  #http://edgeguides.rubyonrails.org/active_record_validations.html#using-a-symbol-with-if-and-unless
 
-  #Would a separate checkout model be better?
+  #Validation still broken -> Kerri is researching.
+
+  def iscompleted?
+    status == "completed"
+  end
+
+  # TO FIX: this validation causes a new order to crash because it asks for this info before the payment/checkout page.
+  
+  # Would a separate checkout model be better?
 
   # scope :pending, -> { where(pending: true) }
 
-  # def total_price
-  #   total_price = order_items.inject(0) { |sum, p| sum + p.subtotal }
-  # end
-
   def subtotals
-    order_items.map do |i| 
-      i.subtotal 
-    end
+    order_items.reduce
   end
 
-  def total
-    subtotals.sum
-  end
+  
 end

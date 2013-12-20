@@ -54,6 +54,33 @@ class User < ActiveRecord::Base
     end
   end
 
+# This is how I think order_fulfillment would be set up, but keep getting current user errors.
+  # def total_revenue(stat)
+  #   total = 0
+  #   Order.where(status: stat).each(|order|     # find all completed orders and for each
+  #     order.order_item.each(|order_item|              # look through the order_items in that order
+  #       if order_item.product.user==@current_user     # if any of them are products of mine/self - CURRENT USER BROKEN
+  #         total = total + order_item.subtotal         # add that subtotal to my revenue
+  #       )
+  #     )
+  # end
+
+  # def revenue_by_status
+  #   status = ["pending", "paid","completed","cancelled"]
+  #   status.map(|stat|
+  #     total = 0
+  #     Order.where(status: stat).each(|order|          # find all completed orders and for each
+  #     order.order_item.each(|order_item|              # look through the order_items in that order
+  #       if order_item.product.user==@current_user     # if any of them are products of mine/self
+  #         total = total + order_item.subtotal         # add that subtotal to my revenue
+  #       )
+  #     )
+  #     total
+  #    )
+  # end
+
+
+
   private
 
   # Method on class User - token gets added to Users database.

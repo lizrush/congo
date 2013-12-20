@@ -12,9 +12,15 @@ class OrdersController < ApplicationController
     @orders = Order.all
   end
 
+<<<<<<< HEAD
+    def cart
+      @order_item = @order.order_items
+    end
+=======
   def cart
     @order_item = @order.order_items
   end
+>>>>>>> master
 
   def checkout
   end
@@ -37,6 +43,29 @@ class OrdersController < ApplicationController
     redirect_to product_path(params[:product])
   end
 
+<<<<<<< HEAD
+    def update_cart
+      @order_item = OrderItem.find(params[:order_item][:order_item_id])
+      @order_item.quantity   = params[:order_item][:quantity] || 1
+      @order_item.save
+      render :cart
+    end
+
+    def add_billing_info
+          @order.status = "completed"
+          @order.email           = params[:email]
+          @order.mailing_address = params[:mailing_address]
+          @order.name_on_cc      = params[:name_on_cc]
+          @order.cc_number       = params[:cc_number]
+          @order.cc_expiration   = params[:cc_expiration]
+          @order.cc_cvv          = params[:cc_cvv]
+          @order.billing_zip     = params[:billing_zip]
+          @order.save
+      
+          # session[:order_id] = nil
+          redirect_to action: 'confirmation'
+    end
+=======
   def update_cart
     @order_item = OrderItem.find(params[:order_item][:order_item_id])
     @order_item.quantity   = params[:order_item][:quantity] || 1
@@ -60,6 +89,7 @@ class OrdersController < ApplicationController
     redirect_to action: 'confirmation' 
   end
   
+>>>>>>> master
 
 private
   def find_cart

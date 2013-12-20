@@ -12,23 +12,33 @@
         <th>Quantity</th>
         <th>Subtotal</th>
         <th>Date/Time</th>
-        <th>Order Status</th>
       </tr>
     </thead>
 
     <tbody>
+      <% total = 0 %>
       <% @old_order.order_items.each do |order_item| %>
-          <tr>
-            <td><%= link_to "#{order_item.product.name}", product_path(Product.find(order_item.product.id)) %></td>
-            <td><%= order_item.product.price %></td>
-            <td><%= order_item.quantity %></td>
-           <!-- 
-            <td><% for order_item in @order.order_items %> <%= order_item.subtotal %><br/><% end %>
-<%= @order.total %></td> #Subtotal is broken. -->
-            <td><%= Time.now.strftime("Ordered on %m/%d/%y at %I:%M%p") %></td>
-            <td>puts "order status here"</td>
-          </tr>   
+      <% total += order_item.subtotal %>
+        <tr>
+          <td>
+            <%= link_to "#{order_item.product.name}", product_path(Product.find(order_item.product.id)) %>
+          </td>
+          <td>
+            <%= order_item.product.price %>
+          </td>
+          <td>
+            <%= order_item.quantity %>
+          </td>
+          <td>
+            <%= order_item.subtotal %>
+          </td>
+          <td>
+            <%= Time.now.strftime("Ordered on %m/%d/%y at %I:%M%p") %>
+          </td>
+        </tr>   
+      <% end %>
+    </tbody>
   </table>
-
-  <% end %>
-
+  <p>
+    Your total is $<%= total %>.  Your order status is <%= @order.status %>.  You will not be charged until your order has shipped.  
+  </p>
