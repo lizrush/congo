@@ -13,19 +13,6 @@
 
 ActiveRecord::Schema.define(version: 20131219234423) do
 
-  create_table "Users", force: true do |t|
-    t.string   "name"
-    t.boolean  "authenticated"
-    t.string   "email"
-    t.boolean  "merchant"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "remember_token"
-    t.string   "password"
-  end
-
-  add_index "Users", ["remember_token"], name: "index_users_on_remember_token"
-
   create_table "categories", force: true do |t|
     t.string   "name"
     t.datetime "created_at"
@@ -36,6 +23,8 @@ ActiveRecord::Schema.define(version: 20131219234423) do
     t.integer  "quantity"
     t.integer  "product_id"
     t.integer  "order_id"
+    t.integer  "price"
+    t.integer  "subtotal"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -82,11 +71,17 @@ ActiveRecord::Schema.define(version: 20131219234423) do
     t.integer  "product_id"
   end
 
-  create_table "user_to_prods", force: true do |t|
-    t.integer  "user_id"
-    t.integer  "product_id"
+  create_table "users", force: true do |t|
+    t.string   "name"
+    t.boolean  "authenticated"
+    t.string   "email"
+    t.boolean  "merchant"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "remember_token"
+    t.string   "password"
   end
+
+  add_index "users", ["remember_token"], name: "index_users_on_remember_token"
 
 end

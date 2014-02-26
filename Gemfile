@@ -27,6 +27,9 @@ gem 'jbuilder', '~> 1.2'
 # Password Encryption
 gem 'bcrypt-ruby', :require => 'bcrypt'
 
+gem 'better_errors'
+gem 'binding_of_caller'
+
 group :test, :development do
   gem 'rspec-rails'
   gem 'factory_girl_rails'

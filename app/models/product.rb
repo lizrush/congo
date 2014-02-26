@@ -28,7 +28,7 @@ class Product < ActiveRecord::Base
       find(:all)
     end
   end
-                        
+
   def self.search(search)
     if search
       find(:all, :conditions => ['name LIKE ?', "%#{search}%"])
@@ -37,12 +37,12 @@ class Product < ActiveRecord::Base
       a = filter_term.flat_map do |category|
         search = includes(:categories).where('categories.category LIKE :s', s: "%#{category}%")
       end
-    else 
+    else
         find(:all)
     end
 
     before_save do
-      @product.price = @product.price * 100 
+      @product.price = @product.price * 100
     end
   end
 
@@ -52,7 +52,7 @@ class Product < ActiveRecord::Base
     categories_array.each do |category_id|
       categories << Category.find(category_id.to_i)
     end
-  end  
+  end
 
   def update_categories(categories_array)
     categories_array.delete_if(&:empty?)

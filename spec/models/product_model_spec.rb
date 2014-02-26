@@ -21,7 +21,7 @@ describe Product do
 
 # Association Validations
     it "should belong to a User" do
-      t = Product.reflect_on_association(:users)
+      t = Product.reflect_on_association(:user)
       t.macro.should == :belongs_to
     end
   end

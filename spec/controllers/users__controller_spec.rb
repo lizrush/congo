@@ -9,11 +9,11 @@ describe UsersController do
     end
   end
 
-  describe "GET 'index'" do
-    render_views
-    it "has title 'Welcome to Congo!'" do
-      get :index
-      expect(response.body).to include("Welcome to Congo!") 
-    end
-  end
+  # describe "GET 'index'" do
+  #   render_views
+  #   it "has title 'Welcome to Congo!'" do
+  #     get :index
+  #     expect(response.body).to include("Welcome to Congo!") 
+  #   end
+  # end
 end
