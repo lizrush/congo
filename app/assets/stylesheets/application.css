@@ -93,6 +93,7 @@ input    {
     display:block;
     border: 1px solid #999;
     height: 25px;
+    width: 100%;
     -webkit-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     -moz-box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.3);
@@ -115,7 +116,9 @@ input.button:hover {
     color:#0192b5;
 }
 
-
+.button_to {
+    width: 100px;
+}
 
 /* CSS for Menu */
 

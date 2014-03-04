@@ -4,5 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   skip_before_action :signed_in?, only: [:new, :create]
+  require 'carmen-rails'
+  include Carmen
 
 end

@@ -1,28 +1,53 @@
 require 'spec_helper'
 
-describe Product do 
-    
-  describe "validations" do    
-# Basic Attribute Validations 
-    it "must have a name" do
-      expect(Product.new(:name => nil)).to be_invalid
+describe Product do
+
+  let(:product) { create(:product) }
+
+  describe "validations" do
+     it 'is valid' do
+      expect(product).to be_valid
     end
 
-# Tests uniqueness of name, but doesn't dynamically come up with testing name
-    it "has a unique name" do
-      prod_one = Product.new(:name => 'Chocolate Macarons')
-      prod_two = Product.new(:name => 'Chocolate Macarons')
-      prod_one.name != prod_two.name
+    it "must have a name" do
+      product.update(name: nil)
+      expect(product).to be_invalid
+    end
+
+    it "name should be unique" do
+      product2 = build(:product, name: product.name)
+      expect(product2).to_not be_valid
     end
 
     it "must have a price" do
-      expect(Product.new(:price => nil)).to be_invalid
+      product.update(price: nil)
+      expect(product).to be_invalid
     end
 
-# Association Validations
-    it "should belong to a User" do
-      t = Product.reflect_on_association(:users)
-      t.macro.should == :belongs_to
+    it "must have a description" do
+      product.update(description: nil)
+      expect(product).to be_invalid
     end
+
+    it "must have a weight" do
+      product.update(weight: nil)
+      expect(product).to be_invalid
+    end
+
+    it "must have a length" do
+      product.update(length: nil)
+      expect(product).to be_invalid
+    end
+
+    it "must have a height" do
+      product.update(height: nil)
+      expect(product).to be_invalid
+    end
+
+    it "must have a width" do
+      product.update(width: nil)
+      expect(product).to be_invalid
+    end
+
   end
 end

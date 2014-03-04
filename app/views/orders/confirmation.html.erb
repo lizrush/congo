@@ -1,44 +1,68 @@
-<h1>Thank you for your purchase!</h1>
+<h1>Order Confirmation:</h1>
 <br>
   <p>
-    Your order number is <%= "#{@order.id}"%>.  Please keep this confirmation page for your records.
+    Your order number is <%= @order.id %>.  Please keep this confirmation page for your records.
   </p>
+  <p><%= link_to "Edit Order", cart_path%></p>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Item</th>
-        <th>Price</th>
-        <th>Quantity</th>
-        <th>Subtotal</th>
-        <th>Date/Time</th>
-      </tr>
-    </thead>
+ <table>
+  <thead>
+    <tr>
+      <th>Item</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+      <th></th>
+    </tr>
+  </thead>
 
-    <tbody>
-      <% total = 0 %>
-      <% @old_order.order_items.each do |order_item| %>
-      <% total += order_item.subtotal %>
+  <tbody>
+ <% sum = 0 %>
+    <% @order.order_items.each do |order_item| %>
         <tr>
-          <td>
-            <%= link_to "#{order_item.product.name}", product_path(Product.find(order_item.product.id)) %>
+          <td><%= link_to "#{order_item.product.name}", product_path(order_item.product.id) %>
           </td>
-          <td>
-            <%= order_item.product.price %>
-          </td>
+          <td><%= number_to_currency(order_item.product.price) %></td>
           <td>
             <%= order_item.quantity %>
           </td>
           <td>
-            <%= order_item.subtotal %>
+            <%= number_to_currency(total(order_item.product.price, order_item.quantity)) %>
           </td>
+          <% sum += total(order_item.product.price, order_item.quantity) %>
+        </tr>
+    <% end %>
+        <tr>
+          <td colspan="3"><strong>Order Subtotal: </strong></td>
+          <td> <strong><%= sum %></strong></td>
+          <td></td>
+        </tr>
+         <tr>
+          <td colspan="3">Shipping: </td>
           <td>
-            <%= Time.now.strftime("Ordered on %m/%d/%y at %I:%M%p") %>
-          </td>
-        </tr>   
-      <% end %>
-    </tbody>
-  </table>
-  <p>
-    Your total is $<%= total %>.  Your order status is <%= @order.status %>.  You will not be charged until your order has shipped.  
-  </p>
+            <select>
+              <% @shipping.each do |service| %>
+              <option>
+                <%= service %>
+              </option>
+              <% end %>
+            </select>
+           </td>
+          <td></td>
+        </tr>
+         <tr>
+          <td colspan="3"><strong> Order Total: </strong></td>
+          <td> <strong>...</strong></td>
+          <td></td>
+        </tr>
+        <tr></tr>
+         <tr>
+          <td colspan="3"> <%= button_to "Confirm", confirm_path(@order) %></td>
+        </tr>
+  </tbody>
+</table>
+
+
+
+
+

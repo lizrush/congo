@@ -7,8 +7,4 @@ class OrderItem < ActiveRecord::Base
                          numericality: { only_integer: true },
                          numericality: { :greater_than => 0 }
 
-  def subtotal
-    quantity * product.price
-  end
-
 end

@@ -5,7 +5,7 @@ class Order < ActiveRecord::Base
   #validates :order_item, presence: true
   has_many :products, through: :order_items
 
-  validates :email, :mailing_address, :name_on_cc, :cc_number, :cc_expiration, :cc_cvv, :billing_zip,   presence: true, if: :iscompleted?
+  validates_presence_of :email, :name_on_cc, :cc_number, :cc_expiration, :cc_cvv, :billing_zip, :street_address, :city, :state, :country, if: :iscompleted?
   #http://edgeguides.rubyonrails.org/active_record_validations.html#using-a-symbol-with-if-and-unless
 
   #Validation still broken -> Kerri is researching.
@@ -15,7 +15,7 @@ class Order < ActiveRecord::Base
   end
 
   # TO FIX: this validation causes a new order to crash because it asks for this info before the payment/checkout page.
-  
+
   # Would a separate checkout model be better?
 
   # scope :pending, -> { where(pending: true) }
@@ -24,5 +24,5 @@ class Order < ActiveRecord::Base
     order_items.reduce
   end
 
-  
+
 end
